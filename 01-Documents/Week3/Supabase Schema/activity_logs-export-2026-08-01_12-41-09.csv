@@ -1,0 +1,187 @@
+id;analysis_id;agent_key;agent_name;message;log_level;created_at
+05f98508-2a75-4795-8a16-bcd84a6cc0d7;cd8a2131-64a9-4eeb-a216-3c427cb81fe9;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 16:04:09.683913+00
+070a4f27-b203-4ed2-bf64-21bd14209cde;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 16:15:20.814786+00
+5a157fbb-743a-45a6-8bd1-0b46e3197415;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;market;Market Research;Analyzing industry reports and market data…;Info;2026-07-28 16:15:30.548902+00
+5f9c917d-2b01-46f8-8591-4d3469ef6cac;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;market;Market Research;Market Research completed;Info;2026-07-28 16:15:34.392077+00
+9d980f94-d1ab-4688-8544-50bfa6003ce0;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;competitor;Competitor Analysis;Found 15 key competitors;Info;2026-07-28 16:15:34.719966+00
+0e98de7a-eb9e-4276-9d32-f70b33132692;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;competitor;Competitor Analysis;Competitor Analysis completed;Info;2026-07-28 16:15:38.419157+00
+bbee2f77-33d4-417f-b25e-87cfcd11360f;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;gap;Gap Analysis;Identified 7 major market gaps;Info;2026-07-28 16:15:38.753429+00
+0cd77ce2-044e-4479-a456-5702c58d24c1;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;gap;Gap Analysis;Gap Analysis completed;Info;2026-07-28 16:15:42.384208+00
+122a899a-4c69-42aa-a2c3-fc2fb979649e;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;tech;Technical Feasibility;Evaluating technical complexity…;Info;2026-07-28 16:15:42.700171+00
+e685c9a9-ed1a-448d-af23-24060471258d;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;tech;Technical Feasibility;Technical Feasibility completed;Info;2026-07-28 16:15:46.410833+00
+596497cc-143a-443a-9889-2e6e28031115;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;business;Business Feasibility;Business Feasibility: 60% complete;Info;2026-07-28 16:15:46.740882+00
+26eb7609-576d-4898-835d-0f1c9bf30d68;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;business;Business Feasibility;Business Feasibility completed;Info;2026-07-28 16:15:50.41146+00
+3fc47350-359b-4481-bf93-85e1b4979f22;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;risk;Risk & Challenge;Scanning potential risks…;Info;2026-07-28 16:15:50.744487+00
+9cd033d4-2762-460a-aa87-1909bd7cd852;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;risk;Risk & Challenge;Risk & Challenge completed;Info;2026-07-28 16:15:54.418941+00
+e3aba06e-cc3b-4cdd-a84f-4bbdf7922fb0;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;score;Opportunity Scoring;Opportunity Scoring in progress;Info;2026-07-28 16:15:54.759073+00
+f703cc92-0a54-44b7-8972-f65d2d5e9c89;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;score;Opportunity Scoring;Opportunity Scoring completed;Info;2026-07-28 16:15:58.392017+00
+94f3ad5d-1c52-4d06-9efe-e9bafa06600b;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;reco;Recommendation Engine;Generating strategic recommendations…;Info;2026-07-28 16:15:58.727115+00
+242470d6-dc2e-4a7f-b877-b727c70802c3;1e47a3a2-5e71-42ee-8527-bf1231efd3c8;reco;Recommendation Engine;Recommendation Engine completed;Info;2026-07-28 16:16:02.422663+00
+600a8960-35d2-4b1b-9b75-e0b1efba8053;f0fd4065-eab6-4718-b999-5463e9f4ca28;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 17:00:52.611095+00
+82d8deb9-56b3-4e2b-91a0-2e501ec1ad02;f0fd4065-eab6-4718-b999-5463e9f4ca28;market;Market Research;Analyzing industry reports and market data…;Info;2026-07-28 17:01:12.726017+00
+c782356c-fa9b-4687-8b9a-71eecd8a183a;f0fd4065-eab6-4718-b999-5463e9f4ca28;market;Market Research;Market Research completed;Info;2026-07-28 17:01:16.660142+00
+a1806dd5-1c9f-4261-9d88-789fa5f13dba;f0fd4065-eab6-4718-b999-5463e9f4ca28;competitor;Competitor Analysis;Found 15 key competitors;Info;2026-07-28 17:01:16.982554+00
+06ae15f8-1948-4ccf-8eff-5ed967a3defc;f0fd4065-eab6-4718-b999-5463e9f4ca28;competitor;Competitor Analysis;Competitor Analysis completed;Info;2026-07-28 17:01:20.653495+00
+54cef4c4-d0bc-464a-bc07-f8385b7af948;f0fd4065-eab6-4718-b999-5463e9f4ca28;gap;Gap Analysis;Identified 7 major market gaps;Info;2026-07-28 17:01:21.01633+00
+0085ad9c-20ef-46bc-84e1-fe6a7c5af9b9;f0fd4065-eab6-4718-b999-5463e9f4ca28;gap;Gap Analysis;Gap Analysis completed;Info;2026-07-28 17:01:24.636978+00
+0a33e5db-db7c-4a28-bbc2-c2c818d6f7c1;f0fd4065-eab6-4718-b999-5463e9f4ca28;tech;Technical Feasibility;Evaluating technical complexity…;Info;2026-07-28 17:01:24.95365+00
+95f5a660-2e5a-4058-9da7-daa939133f0e;f0fd4065-eab6-4718-b999-5463e9f4ca28;tech;Technical Feasibility;Technical Feasibility completed;Info;2026-07-28 17:01:28.651076+00
+d03a78df-de4e-459f-bcd8-a1af9ff16160;f0fd4065-eab6-4718-b999-5463e9f4ca28;business;Business Feasibility;Business Feasibility: 60% complete;Info;2026-07-28 17:01:29.001513+00
+88a794ad-fbad-4561-ae8d-2843116f2f69;f0fd4065-eab6-4718-b999-5463e9f4ca28;business;Business Feasibility;Business Feasibility completed;Info;2026-07-28 17:01:32.663351+00
+70cdc679-a4f1-4e95-add4-ddae1a148bea;f0fd4065-eab6-4718-b999-5463e9f4ca28;risk;Risk & Challenge;Scanning potential risks…;Info;2026-07-28 17:01:33.03623+00
+b4e80222-64f0-42e4-a4f0-f38126daaf0f;f0fd4065-eab6-4718-b999-5463e9f4ca28;risk;Risk & Challenge;Risk & Challenge completed;Info;2026-07-28 17:01:36.646153+00
+cd0e9533-f3ba-446e-9a6e-320c68032d3c;f0fd4065-eab6-4718-b999-5463e9f4ca28;score;Opportunity Scoring;Opportunity Scoring in progress;Info;2026-07-28 17:01:37.004396+00
+6275c8d8-447f-4ab1-b47a-72176d191108;f0fd4065-eab6-4718-b999-5463e9f4ca28;score;Opportunity Scoring;Opportunity Scoring completed;Info;2026-07-28 17:01:40.659008+00
+02455f1f-0d88-4382-b70e-667a5daae570;f0fd4065-eab6-4718-b999-5463e9f4ca28;reco;Recommendation Engine;Generating strategic recommendations…;Info;2026-07-28 17:01:41.057703+00
+882d9ed6-15ab-457a-aece-ecae3b78b6ba;f0fd4065-eab6-4718-b999-5463e9f4ca28;reco;Recommendation Engine;Recommendation Engine completed;Info;2026-07-28 17:01:44.647834+00
+41987535-285b-4eea-bd91-d316ae2c4a09;b649df55-6406-4289-8e8c-4e1462250c4a;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 17:42:28.63215+00
+c93dadb1-f517-4491-87bd-80a8ed55ee57;979f007e-f4a0-41e1-81f2-f9ce1b345ba3;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 19:53:45.739677+00
+9ee62810-9b6b-4911-aa76-e334b81d6824;72f5b88c-b4ef-4b01-a04b-7ac7224ca9f2;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 19:58:30.328779+00
+c073fe5c-6090-48af-8616-821ac225a334;c20d542e-e860-4b2c-b20e-3fa876adb9f4;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 20:00:16.974843+00
+85ab8071-69cd-47ea-8179-1a8c1082641e;2bcea6ea-403b-407a-b5a2-aebb2ad95da6;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 20:01:31.558742+00
+f69aaecd-7e0c-4e0d-a1da-237df7073570;c3007b90-5e03-46b3-bb2d-6a90974046dd;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 20:02:29.064373+00
+dc032c96-3f35-45a0-8a12-2a4f759dc169;bc881fe4-fec4-4743-ba4c-362f467d0285;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 20:07:21.799584+00
+d30cefe8-6d57-488d-bc74-0d609736df49;50a299f4-ddc4-4fc4-9eab-8e0c42ff771a;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-28 20:08:25.473056+00
+b5035312-becd-49b1-b256-eee6aab5cc80;1c1b0d5b-7832-45c8-9ec9-be758c9c1887;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 04:33:11.883637+00
+62166ed7-ee13-4ded-bfe1-e69d5c59efab;77ed539c-3578-4ffd-90fb-ed2b98fbf673;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 04:49:57.146244+00
+3fddfc3f-7682-4475-8cd2-25eddbba1010;6c0a7465-bee9-49a1-99df-ee1a825bbe1f;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 05:30:40.142716+00
+925987ca-f353-4a0e-adf1-1fa4bc4b7c0f;fa2cd0e0-03d3-44ef-977e-17be522a41ed;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 05:49:20.200905+00
+867cb418-e130-4412-95be-4878cdfd8307;92eccfe3-29de-4966-93b5-c2537c032e89;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 10:10:35.492134+00
+823d9166-2840-48c2-a33f-9b72e72c5652;89ea0e38-b974-4dbb-b009-43165659224b;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 12:01:33.52187+00
+701820d8-aff2-4da5-a4d5-d7dc37524475;03e2932d-3561-4256-83c0-8df89af05e44;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 12:10:36.373989+00
+39ba3982-4c3c-44b6-869e-0f296360a9e4;0789a7b9-7016-48cf-a324-168a205addfa;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 15:37:04.954906+00
+84b4a90a-6c38-4106-8348-abd5f2e656d1;a2573517-8253-4fcc-9590-faa952a2fac0;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 15:37:35.719546+00
+d026a692-eb5b-4b22-ae25-337bd9c938a5;3f0b282b-357b-4de3-9bb5-98a4ff179545;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 15:40:31.21937+00
+d106ab45-aead-4f26-9db0-0e3a5f420c0e;befa4345-b0fe-4d08-b5db-34a6168e52e4;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 17:03:06.040524+00
+76112177-8759-402c-946b-24253e5ced3e;c2add7bf-2f29-45c5-8fa6-fe6c4ffebe7e;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 17:05:44.265625+00
+1cff3354-a8df-47bd-9465-dfd5c0ffea75;e9456c49-2127-47ec-bc8b-fb7b59870da3;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 17:09:27.702064+00
+804fe3fb-35b5-4ffa-8e58-1abcdb9428bd;c0068bb8-d3e7-433a-b5cb-4e6a54f63400;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 17:11:43.055449+00
+cd8b1d03-4cb6-4528-ad2e-6d36fcc9c308;dbbe085d-474f-4de3-af94-01e5be0aa53b;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 17:14:17.417557+00
+1d90f6c7-11a3-49f7-affa-24c52fe9102f;d9c79ae4-b903-4f0d-8938-9af4127bb673;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 17:20:07.542634+00
+9ab78772-d0cf-405f-8f13-3149a5a32ff5;a610c557-1145-4d6b-ba84-9a85b9ab0638;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-29 17:21:12.937092+00
+ec416758-8f07-48a3-a08b-46a894550977;8159ef53-e13f-428d-baff-25e7d1da1bf0;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 11:25:16.882882+00
+acf5f811-2dfe-42f0-b724-caef9298bec2;34f0db97-ea3d-4a2f-a317-72e015fbb06c;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 11:40:02.101965+00
+8276f366-c0ea-44c9-8cc8-cf9a5f54ea8d;4251f24c-499d-4abb-a0d5-b3b2787e882c;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 11:41:53.619592+00
+442f6a0f-5b53-4617-a56f-8fa4fba80114;e93287b6-71c8-4196-8a69-6d126b2227e4;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 11:42:13.973069+00
+c534bd98-4620-4a4d-a875-bb5301425e86;7e7cab7e-6527-4712-a4a1-4b8871b8f9a1;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 11:44:10.351692+00
+1f716071-e95a-49f4-9702-4a0d55e54e69;5987fadb-8c24-45ca-b46f-e4a4e69ab50e;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 11:48:39.765755+00
+bac1fcb2-b62a-445b-afba-3a3d73eb9b67;016447ba-13c9-44fd-afbf-1806e9868ac2;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 13:33:27.870628+00
+1590ed39-bdcc-4607-977a-676e4e278bb6;da9ca09d-4e86-4fa6-946d-42cabd474e55;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 13:36:21.84107+00
+fa88a307-5197-4fcd-b5f1-42eca908114e;84baede4-7eb4-4fe7-a319-5b7705d416dc;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 13:42:23.928099+00
+19a75926-9e56-4aad-b28d-3609ab59b62c;da9ca09d-4e86-4fa6-946d-42cabd474e55;;System;Resuming 6 pending agents;Info;2026-07-30 15:44:18.757351+00
+4f67a18d-846e-4db7-bdd4-76e6dfd2f6ff;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Feasibility Analysis;Analysis started;Info;2026-07-30 15:44:18.994201+00
+e084ce6c-8698-4156-a55d-bbd14e9738de;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Gap Analysis;Analysis started;Info;2026-07-30 15:44:18.997297+00
+7c1f65e2-6d85-4d82-8f09-d54a328d863e;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Competitor Analysis;Analysis started;Info;2026-07-30 15:44:18.999774+00
+d7f576d4-96ea-4f06-be61-39ced5efd5b1;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Recommendation Engine;Analysis started;Info;2026-07-30 15:44:19.002873+00
+6dab34d3-bab5-4749-b14c-162929a9f25f;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Risk & Challenge;Analysis started;Info;2026-07-30 15:44:19.012879+00
+c43f3be3-8576-478d-a08f-5e5ffd6535dd;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Market Research;Analysis started;Info;2026-07-30 15:44:19.018539+00
+eb4e0eec-b09e-4d7b-b50a-4ea4c66c7254;da9ca09d-4e86-4fa6-946d-42cabd474e55;;System;Analysis resumed. Pipeline restarted.;Info;2026-07-30 15:44:25.040585+00
+0d780e05-5ee8-4045-a6b4-b6b37fffdc8b;da9ca09d-4e86-4fa6-946d-42cabd474e55;;System;Resuming 6 pending agents;Info;2026-07-30 15:44:27.778692+00
+598a9261-07a3-48ed-a11f-8cf71e024dec;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Feasibility Analysis;Analysis started;Info;2026-07-30 15:44:28.069082+00
+01f086d6-6070-4fac-b2c6-270b85b53383;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Competitor Analysis;Analysis started;Info;2026-07-30 15:44:28.078898+00
+760b94df-fe15-49c0-bc46-d78a3feac103;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Gap Analysis;Analysis started;Info;2026-07-30 15:44:28.083296+00
+f2c8e09d-518c-4eb7-b8b1-c4a63ee87815;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Risk & Challenge;Analysis started;Info;2026-07-30 15:44:28.098633+00
+dfedf281-ae08-45ec-8243-6beaed40a118;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Market Research;Analysis started;Info;2026-07-30 15:44:28.114573+00
+152f60a6-2d30-4a3d-8740-f1b6aeca903a;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Recommendation Engine;Analysis started;Info;2026-07-30 15:44:28.118073+00
+0283d7f7-b36b-4fe2-beab-d65d16a80d8b;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Recommendation Engine;Analysis completed;Success;2026-07-30 15:44:35.656838+00
+1436465c-58b7-403f-a598-e3804d59cbb5;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Competitor Analysis;Analysis completed;Success;2026-07-30 15:44:35.658462+00
+e9a013fe-ad02-49bd-8d41-813f230eb85e;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Market Research;Analysis completed;Success;2026-07-30 15:44:35.660696+00
+f5251e72-01c3-49de-aef1-adbfb6c01a1d;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Gap Analysis;Analysis completed;Success;2026-07-30 15:44:35.665413+00
+1d14c4a2-2a86-418d-baef-3d4e3276c912;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Feasibility Analysis;Analysis completed;Success;2026-07-30 15:44:35.668567+00
+82a7047a-06d4-4394-a6dd-eff812ad8b8f;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Feasibility Analysis;Analysis completed;Success;2026-07-30 15:44:35.81054+00
+33f61077-73d3-4312-ae68-0f44436798ce;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Recommendation Engine;Analysis completed;Success;2026-07-30 15:44:35.810539+00
+d57caf8b-6cdb-4888-88d6-3457c6245811;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Competitor Analysis;Analysis completed;Success;2026-07-30 15:44:35.815381+00
+976c4425-9d92-42f3-bd2a-32d841166f74;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Gap Analysis;Analysis completed;Success;2026-07-30 15:44:35.89734+00
+9ef74d3e-fbf6-4b22-bbc1-58aa428bccc2;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Market Research;Analysis completed;Success;2026-07-30 15:44:37.290801+00
+847658f2-6054-46fb-af41-15222e7ba545;da9ca09d-4e86-4fa6-946d-42cabd474e55;;System;Resuming 1 pending agent;Info;2026-07-30 15:44:57.929921+00
+c5e7bcbf-d989-4790-b1f1-bd89acfccdab;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Risk & Challenge;Analysis started;Info;2026-07-30 15:44:58.213191+00
+a7fa4f5f-f0e8-47ae-b20e-60bdd12676d5;da9ca09d-4e86-4fa6-946d-42cabd474e55;;System;Resuming 1 pending agent;Info;2026-07-30 15:52:52.166827+00
+81fc9f70-066b-43b3-b99b-d860ff9b16d3;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Risk & Challenge;Analysis started;Info;2026-07-30 15:52:52.450909+00
+9d22d51b-b60b-40cb-962b-32ad820ed561;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Risk & Challenge;Analysis completed;Success;2026-07-30 15:53:01.149599+00
+db7e4bf7-32f5-47a1-8dcd-8935a731ad03;da9ca09d-4e86-4fa6-946d-42cabd474e55;;Risk & Challenge;Analysis completed;Success;2026-07-30 15:53:01.441496+00
+474a4942-6b18-4dd3-99b1-72e3f506265e;016447ba-13c9-44fd-afbf-1806e9868ac2;;System;Resuming 6 pending agents;Info;2026-07-30 15:53:14.961336+00
+edef692c-b7fb-4855-af67-5362c1110ecc;016447ba-13c9-44fd-afbf-1806e9868ac2;;Feasibility Analysis;Analysis started;Info;2026-07-30 15:53:15.255298+00
+748be3da-1f2b-4683-b0fa-2e825cb76c4b;016447ba-13c9-44fd-afbf-1806e9868ac2;;Market Research;Analysis started;Info;2026-07-30 15:53:15.277393+00
+6f9d95e8-b2b6-4603-aa0b-e80749b8c277;016447ba-13c9-44fd-afbf-1806e9868ac2;;Competitor Analysis;Analysis started;Info;2026-07-30 15:53:15.279495+00
+a9ce33e9-6237-4118-acab-c1657b23d8a0;016447ba-13c9-44fd-afbf-1806e9868ac2;;Risk & Challenge;Analysis started;Info;2026-07-30 15:53:15.27949+00
+6297bd8c-f855-4c09-aad5-49d8dc308f2c;016447ba-13c9-44fd-afbf-1806e9868ac2;;Recommendation Engine;Analysis started;Info;2026-07-30 15:53:15.288582+00
+735b5cc6-0fdb-4211-8aa8-bcb6ead842d7;016447ba-13c9-44fd-afbf-1806e9868ac2;;Gap Analysis;Analysis started;Info;2026-07-30 15:53:15.290292+00
+014ef84c-0ad0-4f6b-b483-001e80487f13;016447ba-13c9-44fd-afbf-1806e9868ac2;;System;Analysis resumed. Pipeline restarted.;Info;2026-07-30 15:53:18.429878+00
+dc367fdc-8c80-4e7f-a4be-ec37bb82461b;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 15:55:28.919844+00
+c047128f-8518-4440-8b9c-1cb4a21b921c;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;System;Resuming 6 pending agents;Info;2026-07-30 15:55:34.329177+00
+18cd2c85-5d3a-43de-ad53-ad35892bd732;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis started;Info;2026-07-30 15:55:34.486238+00
+f97a421e-eead-4a57-abd2-bba84a9385ca;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis started;Info;2026-07-30 15:55:34.486514+00
+62c179c1-ce56-45b0-80cc-e65ad6d195b0;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis started;Info;2026-07-30 15:55:34.496879+00
+84c81892-3bde-43b4-9f9a-c660075b7d53;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis started;Info;2026-07-30 15:55:34.508124+00
+772cacb7-f9b6-44e5-89fc-85a22af0a6fe;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis started;Info;2026-07-30 15:55:34.511185+00
+3bd74a3a-ef21-4e57-9b8f-9ca11d0bcaa8;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis started;Info;2026-07-30 15:55:34.510704+00
+bc4464ad-c615-40e3-a965-0f2018366ac3;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 15:55:42.311683+00
+42034da7-5f14-4cae-a9c9-6c807da806f9;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 15:55:42.319409+00
+594ae920-055e-4696-8835-c89ec7456e4f;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 15:55:42.330144+00
+b0ccc4e9-d512-4027-82ae-13a90ed099a6;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 15:55:42.350082+00
+9242975d-bd41-4371-a182-6cf2a1287602;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 15:55:42.36257+00
+aa631cdc-bb23-4bbb-81f8-e63d87a3ddf8;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 15:55:44.2738+00
+e2e4df28-9c02-486c-a21d-d1f3f3dde1af;de386ec1-c066-433c-b882-036de29dbfcd;;System;Analysis created. Waiting for AI agents to start.;Info;2026-07-30 17:41:44.811591+00
+4ac75427-a317-453c-9a7d-66080327874e;de386ec1-c066-433c-b882-036de29dbfcd;;Gap Analysis;Analysis started;Info;2026-07-30 17:41:52.421546+00
+4630bfd3-98b0-44e2-b207-5034fc97e9e4;de386ec1-c066-433c-b882-036de29dbfcd;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:41:57.903685+00
+e3ba38cc-cc6b-4c2a-9471-08b2b59a0825;de386ec1-c066-433c-b882-036de29dbfcd;;Gap Analysis;Analysis completed;Success;2026-07-30 17:41:57.905035+00
+076fb283-3fcb-4f81-89bd-9b630a5ea07b;de386ec1-c066-433c-b882-036de29dbfcd;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:42:00.342565+00
+9d9e4f13-5054-4e9a-a660-77e11e299df0;de386ec1-c066-433c-b882-036de29dbfcd;;System;Resuming 6 pending agents;Info;2026-07-30 17:41:52.245577+00
+b1ba9b75-8030-4274-afb8-a13d57a2e8e9;de386ec1-c066-433c-b882-036de29dbfcd;;Market Research;Analysis started;Info;2026-07-30 17:41:52.446431+00
+1768e4c2-5161-4e08-8ada-455a26297b24;de386ec1-c066-433c-b882-036de29dbfcd;;Market Research;Analysis completed;Success;2026-07-30 17:41:57.907823+00
+103ff6f1-f1eb-4e14-8a1c-f44064ddcafb;de386ec1-c066-433c-b882-036de29dbfcd;;Market Research;Analysis completed;Success;2026-07-30 17:41:59.464894+00
+3eeb5be4-2b3b-499a-b6f3-5fe2247e2058;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 17:40:48.269299+00
+7c1bfbd9-31d4-450f-88ee-a14fdfaf236f;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:40:48.269157+00
+e418e01c-9d89-4a99-840c-3c6523285bc3;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:40:48.271696+00
+2036e56c-b64c-4de0-bbc5-d2cff81fd0e5;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:40:48.26938+00
+4a52ca36-743c-479a-82c2-9f54820c46d6;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 17:40:48.274551+00
+596e01b6-4d83-421b-9b20-7e2475e7aa34;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:40:48.276911+00
+090654c3-3ed9-471f-8bac-129df906fcaf;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:40:54.781883+00
+65506ae8-f81f-4ce5-9d3d-9c476f738de7;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:40:55.714955+00
+6b935a51-f598-434d-b631-66f05d71d06b;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:40:56.364449+00
+c462a9c2-5d4f-403b-bbfd-7d1dc6f8ba21;de386ec1-c066-433c-b882-036de29dbfcd;;Competitor Analysis;Analysis started;Info;2026-07-30 17:41:52.408475+00
+ba895dc5-a85b-42c4-a9d7-376a760171bf;de386ec1-c066-433c-b882-036de29dbfcd;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:41:57.915147+00
+cf31eb99-82ef-4a0a-a95b-7948a2db900e;de386ec1-c066-433c-b882-036de29dbfcd;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:41:59.881988+00
+574f74f5-5119-485e-9e96-9f6a738369c7;de386ec1-c066-433c-b882-036de29dbfcd;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:41:59.918463+00
+fb16ad3e-06bf-4f2e-8200-fbd87ac6c245;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 17:40:49.397759+00
+ae311210-00a9-4633-8165-f69bd5e3ce2f;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 17:40:51.800062+00
+794d06d8-6080-41a3-8c23-dc756fa8a07a;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:40:54.774038+00
+386a138b-e72d-49ce-b0ab-71a48e3c3ca1;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:40:55.713636+00
+b5eb4989-1bdd-4425-a2c6-a15308399a6b;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:40:56.366412+00
+7c65cc56-1867-482d-8b1d-02803fd327e8;de386ec1-c066-433c-b882-036de29dbfcd;;Risk & Challenge;Analysis started;Info;2026-07-30 17:41:52.424243+00
+34cc58aa-ff8e-4481-b4ae-65737f4f9c7a;de386ec1-c066-433c-b882-036de29dbfcd;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:41:57.915236+00
+6fd05bf2-2062-4a10-a8b0-e9b72add523e;de386ec1-c066-433c-b882-036de29dbfcd;;Competitor Analysis;Analysis failed;Error;2026-07-30 17:42:01.704369+00
+ccb44cc3-0026-48d6-8f71-9928c50a8cf9;de386ec1-c066-433c-b882-036de29dbfcd;;System;Resuming 1 pending agent;Info;2026-07-30 17:42:20.686849+00
+4f9b8c1f-9e83-4c0e-8bf7-d5ce1a1067c5;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 17:40:49.398075+00
+2a7f3ef0-ef29-494c-a5f9-cc8441767a35;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:40:51.796897+00
+c0a13f0d-653e-4f71-bd8c-b10f87f4b84d;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 17:40:54.769489+00
+eb6d0f6f-239d-47fb-b86a-29fb95957a96;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:40:55.71285+00
+343e7df2-ce9d-4597-b4e8-8c78e1e4c19e;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:40:57.256299+00
+b83719eb-a8f9-4561-a921-6fc638cae403;de386ec1-c066-433c-b882-036de29dbfcd;;Recommendation Engine;Analysis started;Info;2026-07-30 17:41:52.435288+00
+78e8136e-e401-4743-857a-25f236f8700e;de386ec1-c066-433c-b882-036de29dbfcd;;Competitor Analysis;Analysis started;Info;2026-07-30 17:42:21.014824+00
+b52db4cd-fb46-4178-b74e-0c72e2a0111e;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:40:49.41998+00
+95c0d848-a5bf-4b4a-9554-4f3eeac00058;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:40:49.420945+00
+4a2b4bfb-bbd9-47c2-89dd-6c9fdbcea353;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:40:49.423862+00
+85c9ec57-5025-4ddf-bc8b-92f314d68d8a;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:40:49.42373+00
+ad70b32e-f78d-4f59-a57d-c06b5492f34e;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:40:51.78624+00
+9e5c3052-3861-46fc-abbe-87c29ff166b1;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 17:40:51.789473+00
+44ff2911-af66-4baf-a189-758e61b5c1c3;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:40:51.789309+00
+b6019a44-75ee-4d95-b64e-80e0cda25356;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:40:51.794967+00
+4b5ca3ac-da93-4674-8098-247bf44901e7;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:40:54.753147+00
+e936363a-7b37-4716-ab3b-2f840b7fa6b7;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Recommendation Engine;Analysis completed;Success;2026-07-30 17:40:54.754202+00
+0d74d023-fef3-4e0e-9b1b-6bac01e76491;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 17:40:54.784966+00
+523cb8f4-c72d-467f-92e9-b78cfc391395;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 17:40:55.715372+00
+89fa2df7-043b-4436-87c6-109f05f228e7;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 17:40:55.717865+00
+ea587e2f-add8-45cb-8cac-174cca81d610;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:40:55.723945+00
+41604134-826b-4e3b-ab17-e60b22a50b93;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:40:56.379473+00
+1ab10740-dc8b-4718-a207-3bdca667e7f6;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 17:40:56.381059+00
+ca754e7c-aa1b-4272-b63e-c0d3c44115cd;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 17:40:56.381643+00
+ad2f4026-54f9-4ac8-ba86-6be5430694a5;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:40:56.384782+00
+1e1f5161-67ee-44bc-938c-3c8d73d4fce7;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Risk & Challenge;Analysis completed;Success;2026-07-30 17:40:57.225158+00
+428d4fa8-c299-462e-bead-ba69215d067e;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Gap Analysis;Analysis completed;Success;2026-07-30 17:40:57.227736+00
+c5ad0f48-bc7c-409e-bee8-d4f9d5237a0b;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:40:57.241002+00
+55629413-bea5-4c38-8b4a-b10ddccfef03;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Market Research;Analysis completed;Success;2026-07-30 17:40:57.240684+00
+92aa02cc-0c2a-4a9e-a949-46472fac08fe;7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8;;Feasibility Analysis;Analysis completed;Success;2026-07-30 17:40:57.242806+00
+c0de02ca-8dec-44dd-a3f1-0f49a015f9c7;de386ec1-c066-433c-b882-036de29dbfcd;;Feasibility Analysis;Analysis started;Info;2026-07-30 17:41:52.435405+00
+17ef86e1-0f4f-4a69-b1ae-a89d60857350;de386ec1-c066-433c-b882-036de29dbfcd;;Gap Analysis;Analysis completed;Success;2026-07-30 17:41:59.621025+00
+7458c476-04ad-4bfe-91fe-30fd94875fd3;de386ec1-c066-433c-b882-036de29dbfcd;;Competitor Analysis;Analysis completed;Success;2026-07-30 17:42:30.386287+00
