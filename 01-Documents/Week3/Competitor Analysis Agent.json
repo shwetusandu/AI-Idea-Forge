@@ -1,0 +1,256 @@
+{
+  "name": "Competitor Analysis Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/fetch-ai-analysis",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "analysis_request_id",
+              "value": "={{ $json.body.analysis_request_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "01ccc84d-dbf1-49ec-b2c5-675612743f1c",
+      "name": "Fetch AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "db3e06e5-fca1-4f5d-98a8-1315efcd9aad",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"Database\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "98bb30af-c23a-46b8-99f5-f074e3da0ccf",
+      "name": "Respond Database Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"OpenAI\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "f2b28d69-5edb-44d2-96f6-2c60d12afd48",
+      "name": "Respond OpenAI Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/save-competitor-analysis",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "eb0efee8-6d09-4cf9-8c91-8b5616747f5e",
+      "name": "Save Competitor Analysis Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        896,
+        288
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Competitor-Analysis-Webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "30c6f0b3-5245-48ec-8ed3-e1e1e3398d8c",
+      "name": "Competitor Analysis Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        384
+      ],
+      "webhookId": "433fe972-715c-4bdf-9322-2c57d7a6cd73"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json.choices[0].message.content;\n\nconst competitorAnalysis = JSON.parse(response);\n\nreturn [\n  {\n    json: {\n      analysis_request_id: $('Fetch AI Analysis').first().json.analysis_request_id,\n\n      direct_competitors: competitorAnalysis.direct_competitors,\n      indirect_competitors: competitorAnalysis.indirect_competitors,\n      competitor_strengths: competitorAnalysis.competitor_strengths,\n      competitor_weaknesses: competitorAnalysis.competitor_weaknesses,\n      market_positioning: competitorAnalysis.market_positioning,\n      competitive_landscape_summary: competitorAnalysis.competitive_landscape_summary,\n      analysis_status: competitorAnalysis.analysis_status,\n      confidence_score: competitorAnalysis.confidence_score,\n      updated_at: competitorAnalysis.updated_at\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        288
+      ],
+      "id": "cb8b66e5-916f-45ec-9e4b-c1c6089c40e2",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional Competitor Analysis Consultant. Always return ONLY valid JSON. Never use markdown, code fences, explanations, comments, or additional text. Follow the JSON schema exactly. Generate ONLY competitor analysis. Never include market research, SWOT analysis, recommendations, business model, feasibility analysis, implementation planning, risk analysis, or gap analysis.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze the following startup idea and generate ONLY competitor analysis.\\n\\nReturn ONLY this JSON structure:\\n\\n{\\n  \\\"direct_competitors\\\": [],\\n  \\\"indirect_competitors\\\": [],\\n  \\\"competitor_strengths\\\": [],\\n  \\\"competitor_weaknesses\\\": [],\\n  \\\"market_positioning\\\": \\\"\\\",\\n  \\\"competitive_landscape_summary\\\": \\\"\\\",\\n  \\\"analysis_status\\\": \\\"Completed\\\",\\n  \\\"confidence_score\\\": 0,\\n  \\\"updated_at\\\": \\\"\\\"\\n}\\n\\nRules:\\n- direct_competitors MUST contain 4-8 well-known direct competitors relevant to the startup idea.\\n- indirect_competitors MUST contain 4-8 indirect competitors or alternative solutions.\\n- competitor_strengths MUST contain 5-8 common strengths observed across competitors.\\n- competitor_weaknesses MUST contain 5-8 common weaknesses or limitations observed across competitors.\\n- market_positioning MUST describe how the startup could position itself within the competitive landscape in 2-4 sentences.\\n- competitive_landscape_summary MUST summarize the overall competitive landscape in 2-4 sentences.\\n- analysis_status MUST always be \\\"Completed\\\".\\n\\nConfidence Score Rules:\\n- confidence_score MUST be an integer between 50 and 100.\\n- Assign the confidence score based ONLY on the competitor analysis.\\n\\nScoring Guide:\\n- 95-100: Very few competitors, clear market gap, strong differentiation, low market saturation, and strong competitive advantage.\\n- 85-94: Moderate competition with good differentiation, clear positioning, and realistic opportunity to capture market share.\\n- 70-84: Competitive market with several established players but identifiable gaps and reasonable opportunities for success.\\n- 60-69: Highly competitive market with limited differentiation. Success depends heavily on execution and marketing.\\n- 50-59: Extremely saturated market dominated by strong competitors with little or no clear competitive advantage.\\n\\n- Do NOT select a default value such as 90 or 92. Choose the confidence score that best matches the analysis.\\n- updated_at MUST be the current timestamp in ISO 8601 format.\\n\\nIMPORTANT:\\n- Generate ONLY competitor analysis.\\n- DO NOT include market research.\\n- DO NOT include SWOT analysis.\\n- DO NOT include recommendations.\\n- DO NOT include business model.\\n- DO NOT include feasibility analysis.\\n- DO NOT include implementation planning.\\n- DO NOT include risk analysis.\\n- DO NOT include gap analysis.\\n- Return ONLY the JSON object without any additional text.\\n\\nStartup Idea:\\n\\nTitle:\\n{{ $json.generated_title }}\\n\\nDescription:\\n{{ $json.generated_description }}\\n\\nIndustry:\\n{{ $json.industry }}\"\n    }\n  ],\n  \"temperature\": 0.5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        384
+      ],
+      "id": "7e8ce7f4-ab98-4f62-86b8-cd102271b10d",
+      "name": "AI Competitor Analysis",
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "AI Competitor Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Competitor Analysis Data": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Database Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Competitor Analysis Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save Competitor Analysis Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Competitor Analysis": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "ff82804a-0d6d-4d9c-9fd1-4c637826b068",
+  "meta": {
+    "instanceId": "2d890b0141b8e8dbe9c092172fd2e5ceae0b881f47eea8cb85a154d0b3f78c87"
+  },
+  "nodeGroups": [],
+  "id": "b4AjtBLMbLff3WVo",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T18:45:24.420Z",
+      "createdAt": "2026-07-28T18:45:24.420Z",
+      "id": "i08gxagOZgXnUlt3",
+      "name": "AI Idea Forge"
+    }
+  ]
+}

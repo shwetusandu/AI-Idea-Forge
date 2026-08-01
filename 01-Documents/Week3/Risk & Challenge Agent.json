@@ -1,0 +1,256 @@
+{
+  "name": "Risk & Challenge Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/fetch-ai-analysis",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "analysis_request_id",
+              "value": "={{ $json.body.analysis_request_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1dea65c3-492c-43d0-a287-3579988b200e",
+      "name": "Fetch AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "8862c584-e36d-4be1-8199-7f93ab55b576",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"Database\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "93c48783-3cb8-4931-8731-f636e0fe1dee",
+      "name": "Respond Database Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"OpenAI\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "d6e1e895-d928-4973-8bcc-e7c9069811d9",
+      "name": "Respond OpenAI Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/save-risk-challenge",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "f528a036-7d21-4176-bfa1-fac814e8a834",
+      "name": "Save Risk & Challenge Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        896,
+        384
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json.choices[0].message.content;\n\nconst riskAssessment = JSON.parse(response);\n\nreturn [\n  {\n    json: {\n      analysis_request_id: $('Fetch AI Analysis').first().json.analysis_request_id,\n\n      market_risks: riskAssessment.market_risks,\n      technical_risks: riskAssessment.technical_risks,\n      business_risks: riskAssessment.business_risks,\n      financial_risks: riskAssessment.financial_risks,\n      legal_and_regulatory_risks: riskAssessment.legal_and_regulatory_risks,\n      operational_challenges: riskAssessment.operational_challenges,\n      risk_mitigation_strategies: riskAssessment.risk_mitigation_strategies,\n      overall_risk_level: riskAssessment.overall_risk_level,\n      risk_summary: riskAssessment.risk_summary,\n      analysis_status: riskAssessment.analysis_status,\n      confidence_score: riskAssessment.confidence_score\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        384
+      ],
+      "id": "d18a5a2b-0557-4e3e-b1ab-3665adbf66b9",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Risk-Challenge-Webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d102b1af-07f7-4a16-9f7a-a99d1109e1a5",
+      "name": "Risk & Challenge Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        480
+      ],
+      "webhookId": "521de0f5-dee7-4bf3-aba1-d1df1360c525"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional Startup Risk Assessment Expert. Always return ONLY valid JSON. Never use markdown, code fences, explanations, comments, or additional text. Follow the JSON schema exactly. Generate ONLY startup risk analysis. Never include market research, competitors, recommendations, SWOT analysis, business model, feasibility analysis, implementation planning, or gap analysis.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze the following startup idea and generate ONLY startup risk analysis.\\n\\nReturn ONLY this JSON structure:\\n\\n{\\n  \\\"market_risks\\\": [],\\n  \\\"technical_risks\\\": [],\\n  \\\"business_risks\\\": [],\\n  \\\"financial_risks\\\": [],\\n  \\\"legal_and_regulatory_risks\\\": [],\\n  \\\"operational_challenges\\\": [],\\n  \\\"risk_mitigation_strategies\\\": [],\\n  \\\"overall_risk_level\\\": \\\"\\\",\\n  \\\"risk_summary\\\": \\\"\\\",\\n  \\\"analysis_status\\\": \\\"Completed\\\",\\n  \\\"confidence_score\\\": 0\\n}\\n\\nRules:\\n- market_risks MUST contain 4-6 market-related risks.\\n- technical_risks MUST contain 4-6 technical implementation risks.\\n- business_risks MUST contain 4-6 business strategy or execution risks.\\n- financial_risks MUST contain 4-6 financial risks.\\n- legal_and_regulatory_risks MUST contain 3-5 applicable legal, compliance, or regulatory risks.\\n- operational_challenges MUST contain 4-6 operational or scaling challenges.\\n- risk_mitigation_strategies MUST contain 5-8 practical mitigation strategies corresponding to the identified risks.\\n- overall_risk_level MUST be one of: Low, Medium, High, or Very High.\\n- risk_summary MUST summarize the startup's overall risk profile in 2-4 sentences.\\n- analysis_status MUST always be \\\"Completed\\\".\\n\\nConfidence Score Rules:\\n- confidence_score MUST be an integer between 50 and 100.\\n- Assign the confidence score based ONLY on the overall risk assessment.\\n- If the startup has Low risk, assign a confidence score between 76 and 100.\\n- If the startup has Medium risk, assign a confidence score between 65 and 85.\\n- If the startup has High or Very High risk, assign a confidence score between 50 and 75.\\n- Choose the score that best matches the identified risks and mitigation strategies. Do NOT use a default value.\\n\\nIMPORTANT:\\n- Generate ONLY startup risk analysis.\\n- DO NOT include market research.\\n- DO NOT include competitors.\\n- DO NOT include SWOT analysis.\\n- DO NOT include recommendations.\\n- DO NOT include business model.\\n- DO NOT include feasibility analysis.\\n- DO NOT include implementation planning.\\n- DO NOT include gap analysis.\\n- Return ONLY the JSON object without any additional text.\\n\\nStartup Idea:\\n\\nTitle:\\n{{ $json.generated_title }}\\n\\nDescription:\\n{{ $json.generated_description }}\\n\\nIndustry:\\n{{ $json.industry }}\"\n    }\n  ],\n  \"temperature\": 0.5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        480
+      ],
+      "id": "513c9692-9119-4819-88e5-ece6f523187f",
+      "name": "AI Risk & Challenge Analysis",
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "AI Risk & Challenge Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Risk & Challenge Data": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Database Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save Risk & Challenge Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Risk & Challenge Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Risk & Challenge Analysis": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "7965047f-40ba-4287-854a-ca7b0da92dc2",
+  "meta": {
+    "instanceId": "2d890b0141b8e8dbe9c092172fd2e5ceae0b881f47eea8cb85a154d0b3f78c87"
+  },
+  "nodeGroups": [],
+  "id": "GSLYVFvvZobxFZwe",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T18:45:24.420Z",
+      "createdAt": "2026-07-28T18:45:24.420Z",
+      "id": "i08gxagOZgXnUlt3",
+      "name": "AI Idea Forge"
+    }
+  ]
+}

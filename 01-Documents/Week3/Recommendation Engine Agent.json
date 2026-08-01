@@ -1,0 +1,256 @@
+{
+  "name": "Recommendation Engine Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/fetch-ai-analysis",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "analysis_request_id",
+              "value": "={{ $json.body.analysis_request_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "478b4ffe-44df-425d-8370-b2fc5b9ea407",
+      "name": "Fetch AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "e805b3e3-0f55-4649-a94f-3586a85fc1de",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"Database\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "d2c3397a-b41b-4973-9f76-449381141da4",
+      "name": "Respond Database Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"OpenAI\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "40160c14-af02-4055-b04b-0a8a5e0bcc80",
+      "name": "Respond OpenAI Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/save-recommendation-engine",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "1609db23-83c1-4b68-a106-9715937cf4e0",
+      "name": "Save Recommendation Engine Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        896,
+        208
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json.choices[0].message.content;\n\nconst strategy = JSON.parse(response);\n\nreturn [\n  {\n    json: {\n      analysis_request_id: $('Fetch AI Analysis').first().json.analysis_request_id,\n\n      overall_opportunity_score: strategy.overall_opportunity_score,\n      priority_recommendations: strategy.priority_recommendations,\n      recommended_next_steps: strategy.recommended_next_steps,\n      product_improvements: strategy.product_improvements,\n      business_strategy: strategy.business_strategy,\n      go_to_market_strategy: strategy.go_to_market_strategy,\n      recommendation_summary: strategy.recommendation_summary,\n      analysis_status: strategy.analysis_status,\n      confidence_score: strategy.confidence_score,\n      updated_at: strategy.updated_at\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        208
+      ],
+      "id": "d1485056-d927-4857-b646-f1d0658d55b4",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Recommendation-Engine-Webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "534bb64a-00a5-4b0e-a0b2-fb5d4a559aa4",
+      "name": "Recommendation Engine Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        304
+      ],
+      "webhookId": "1d4baf4e-daa4-4b1e-8916-f757b81eee66"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional Startup Strategy Advisor. Always return ONLY valid JSON. Never use markdown, code fences, explanations, comments, or additional text. Follow the JSON schema exactly. Generate ONLY strategic recommendations. Never include market research, competitors, SWOT analysis, feasibility analysis, implementation planning, risk analysis, or gap analysis.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze the following startup idea and generate ONLY strategic recommendations.\\n\\nReturn ONLY this JSON structure:\\n\\n{\\n  \\\"overall_opportunity_score\\\": 0,\\n  \\\"priority_recommendations\\\": [],\\n  \\\"recommended_next_steps\\\": [],\\n  \\\"product_improvements\\\": [],\\n  \\\"business_strategy\\\": [],\\n  \\\"go_to_market_strategy\\\": [],\\n  \\\"recommendation_summary\\\": \\\"\\\",\\n  \\\"analysis_status\\\": \\\"Completed\\\",\\n  \\\"confidence_score\\\": 0\\n}\\n\\nRules:\\n- overall_opportunity_score MUST be an integer between 0 and 100.\\n- priority_recommendations MUST contain 5-8 high-priority strategic recommendations.\\n- recommended_next_steps MUST contain 5-8 actionable next steps in logical order.\\n- product_improvements MUST contain 4-6 suggested product enhancements.\\n- business_strategy MUST contain 4-6 strategic business initiatives.\\n- go_to_market_strategy MUST contain 4-6 go-to-market strategies.\\n- recommendation_summary MUST summarize the overall strategic direction in 2-4 sentences.\\n- analysis_status MUST always be \\\"Completed\\\".\\n\\nConfidence Score Rules:\\n- confidence_score MUST be an integer between 50 and 100.\\n- Assign the confidence score based ONLY on the quality and strength of the strategic recommendations.\\n- If the startup has a very strong opportunity with clear, practical, and high-impact recommendations, assign a confidence score between 90 and 100.\\n- If the startup has a good opportunity with actionable recommendations and a realistic growth path, assign a confidence score between 76 and 89.\\n- If the startup has a moderate opportunity with several challenges or uncertainties, assign a confidence score between 60 and 75.\\n- If the startup has weak strategic potential, unclear direction, or significant obstacles, assign a confidence score between 50 and 59.\\n- Choose the score that best matches the analysis. Do NOT use a default value.\\n\\nIMPORTANT:\\n- Generate ONLY strategic recommendations.\\n- DO NOT include market research.\\n- DO NOT include competitors.\\n- DO NOT include SWOT analysis.\\n- DO NOT include feasibility analysis.\\n- DO NOT include implementation planning.\\n- DO NOT include risk analysis.\\n- DO NOT include gap analysis.\\n- Return ONLY the JSON object without any additional text.\\n\\nStartup Idea:\\n\\nTitle:\\n{{ $json.generated_title }}\\n\\nDescription:\\n{{ $json.generated_description }}\\n\\nIndustry:\\n{{ $json.industry }}\"\n    }\n  ],\n  \"temperature\": 0.5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        304
+      ],
+      "id": "6b8fb359-8978-425f-b2c9-e06a277516aa",
+      "name": "AI Recommendation Engine",
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "AI Recommendation Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Recommendation Engine Data": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Database Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save Recommendation Engine Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recommendation Engine Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Recommendation Engine": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "1d43ab76-d839-446b-b166-6675c808cb91",
+  "meta": {
+    "instanceId": "2d890b0141b8e8dbe9c092172fd2e5ceae0b881f47eea8cb85a154d0b3f78c87"
+  },
+  "nodeGroups": [],
+  "id": "7QoDjtIU7dj1HhDK",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T18:45:24.420Z",
+      "createdAt": "2026-07-28T18:45:24.420Z",
+      "id": "i08gxagOZgXnUlt3",
+      "name": "AI Idea Forge"
+    }
+  ]
+}

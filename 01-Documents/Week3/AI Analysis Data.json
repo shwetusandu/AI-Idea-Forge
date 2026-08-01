@@ -1,0 +1,244 @@
+{
+  "name": "AI Analysis Data",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "new-analysis-data",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d3fa890f-6c39-46b0-8d9f-afd9383f132d",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -128,
+        384
+      ],
+      "webhookId": "6c437814-4411-4f25-bcc3-223ed50ac902"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = ($input.first().json.body) || {};\n\nconst required = [\"analysis_id\", \"input_type\", \"description\"];\nconst missing = required.filter((f) => body[f] === undefined || body[f] === null || String(body[f]).trim() === \"\");\nif (missing.length) {\n  throw new Error(\"Missing required field(s): \" + missing.join(\", \"));\n}\n\nconst input_hash = \" \";\n\nreturn [{\n  json: {\n    analysis_request_id: body.analysis_id,\n    input_type: body.input_type,\n    description: body.description,\n    input_hash,\n  },\n}];"
+      },
+      "id": "3fadd236-632a-43c7-8f10-e0210e3dd791",
+      "name": "Validate & Prepare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        384
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": false, \"status\": \"failed\", \"message\": ($json[\"error\"] && $json[\"error\"].message) ? $json[\"error\"].message : \"Workflow execution failed.\" } }}",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "61d3c0b2-d4aa-4051-85d8-0d44813c412d",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        992,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": true, \"status\": \"completed\", \"analysis_request_id\": $('Validate & Prepare').item.json.analysis_request_id, \"message\": \"Analysis completed successfully.\" } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "a03783b0-cbf3-47e0-9b42-b6431166dcb6",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        992,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an AI Startup Idea Analyzer. Always return ONLY valid JSON. Never use markdown, code fences, explanations, comments, or additional text. Follow the JSON schema exactly. Never interchange generated_title and generated_description.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze the following startup idea and generate startup metadata.\\n\\nReturn ONLY this JSON structure:\\n\\n{\\n  \\\"input_hash\\\": \\\"\\\",\\n  \\\"generated_description\\\": \\\"\\\",\\n  \\\"generated_title\\\": \\\"\\\",\\n  \\\"industry\\\": \\\"\\\",\\n  \\\"matching_score\\\": 0,\\n  \\\"is_reanalysis\\\": false,\\n  \\\"reanalysis_count\\\": 0,\\n  \\\"analysis_status\\\": \\\"Completed\\\",\\n  \\\"ai_model\\\": \\\"llama-3.1-8b-instant\\\",\\n  \\\"confidence_score\\\": 0,\\n  \\\"updated_at\\\": \\\"\\\"\\n}\\n\\nRules:\\n- generated_title MUST be ONLY a startup/product/business name.\\n- generated_title MUST NOT be a sentence.\\n- generated_title MUST NOT describe the startup.\\n- generated_title MUST contain a maximum of 8 words.\\n- Example generated_title: \\\"Startup Idea Analyzer\\\", \\\"HealthSync AI\\\", \\\"MarketPulse\\\", \\\"Smart Finance Assistant\\\".\\n\\n- generated_description MUST be ONLY the business description.\\n- generated_description MUST be 40-80 words.\\n- generated_description MUST explain what the startup does, who it serves, and its business value.\\n- generated_description MUST NOT be a title.\\n- generated_description MUST NOT repeat the title.\\n\\n- industry: Return only one industry.\\n- matching_score: Integer between 70 and 100.\\n- confidence_score: Integer between 75 and 100.\\n- analysis_status: Always 'Completed'.\\n- is_reanalysis: Always false.\\n- reanalysis_count: Always 0.\\n- input_hash: Return an empty string.\\n- updated_at: Return the current UTC timestamp in ISO-8601 format.\\n- ai_model: Always return 'llama-3.1-8b-instant'.\\n\\nIMPORTANT:\\nNever interchange generated_title and generated_description.\\nReturn ONLY the JSON object without any additional text.\\n\\nStartup Idea:\\n{{$json.description}}\"\n    }\n  ],\n  \"temperature\": 0.3\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        320,
+        320
+      ],
+      "id": "57d36360-ef4d-46d8-8ce4-90d988565db7",
+      "name": "AI Analysis Data",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst ai = JSON.parse($json.choices[0].message.content);\n\nreturn [\n  {\n    json: {\n      analysis_request_id: $('Validate & Prepare').first().json.analysis_request_id,\n      input_type: $('Validate & Prepare').first().json.input_type,\n      description: $('Validate & Prepare').first().json.description,\n      input_hash: $('Validate & Prepare').first().json.input_hash,\n\n      ...ai\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        240
+      ],
+      "id": "8bcf7bdf-3e11-4cd0-b59e-d987947fe598",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/save-ai-analysis",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "9e839126-959a-4a8c-9807-c258c5313a35",
+      "name": "Save to ai_analysis_data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        768,
+        240
+      ],
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate & Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate & Prepare": {
+      "main": [
+        [
+          {
+            "node": "AI Analysis Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Analysis Data": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save to ai_analysis_data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to ai_analysis_data": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "6b44d38d-1701-45f0-82bd-67b96ad39cca",
+  "meta": {
+    "instanceId": "2d890b0141b8e8dbe9c092172fd2e5ceae0b881f47eea8cb85a154d0b3f78c87"
+  },
+  "nodeGroups": [],
+  "id": "rizmfU0SR1PCxmqO",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T18:45:24.420Z",
+      "createdAt": "2026-07-28T18:45:24.420Z",
+      "id": "i08gxagOZgXnUlt3",
+      "name": "AI Idea Forge"
+    }
+  ]
+}
