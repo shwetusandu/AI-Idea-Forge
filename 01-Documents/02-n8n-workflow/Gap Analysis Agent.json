@@ -1,0 +1,256 @@
+{
+  "name": "Gap Analysis Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/fetch-ai-analysis",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "analysis_request_id",
+              "value": "={{ $json.body.analysis_request_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4926564d-0716-4e43-9e2a-361b19ccab6c",
+      "name": "Fetch AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "493a6611-8038-4b81-b202-c26f491d65ec",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"Database\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "c84146e3-d244-439d-9558-cd7fe9f47ced",
+      "name": "Respond Database Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"OpenAI\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "a2bd46a1-df71-4dc5-ad99-2fd79787978d",
+      "name": "Respond OpenAI Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/save-gap-analysis",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "c012da70-e63b-4a4a-b36b-00478433322b",
+      "name": "Save Gap Analysis Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        896,
+        352
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json.choices[0].message.content;\n\nconst gapAnalysis = JSON.parse(response);\n\nreturn [\n  {\n    json: {\n      analysis_request_id: $('Fetch AI Analysis').first().json.analysis_request_id,\n      identified_market_gaps: gapAnalysis.identified_market_gaps,\n      customer_unmet_needs: gapAnalysis.customer_unmet_needs,\n      innovation_gaps: gapAnalysis.innovation_gaps,\n      differentiation_opportunities: gapAnalysis.differentiation_opportunities,\n      gap_summary: gapAnalysis.gap_summary,\n      analysis_status: gapAnalysis.analysis_status,\n      confidence_score: gapAnalysis.confidence_score,\n      updated_at: gapAnalysis.updated_at\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        352
+      ],
+      "id": "6f34961e-dad2-4608-b86b-c2f066a2e1e8",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional Product Innovation Consultant. Always return ONLY valid JSON. Never use markdown, code fences, explanations, comments, or additional text. Follow the JSON schema exactly. Generate ONLY gap analysis. Never include market research, competitors, recommendations, SWOT analysis, business model, feasibility analysis, implementation planning, or risk analysis.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze the following startup idea and generate ONLY gap analysis.\\n\\nReturn ONLY this JSON structure:\\n\\n{\\n  \\\"identified_market_gaps\\\": [],\\n  \\\"customer_unmet_needs\\\": [],\\n  \\\"innovation_gaps\\\": [],\\n  \\\"differentiation_opportunities\\\": [],\\n  \\\"gap_summary\\\": \\\"\\\",\\n  \\\"analysis_status\\\": \\\"Completed\\\",\\n  \\\"confidence_score\\\": 0\\n}\\n\\nRules:\\n- identified_market_gaps MUST contain 4-6 specific gaps in the current market.\\n- customer_unmet_needs MUST contain 4-6 unmet customer needs that existing solutions fail to address.\\n- innovation_gaps MUST contain 4-6 opportunities where innovation can improve existing solutions.\\n- differentiation_opportunities MUST contain 4-6 unique ways the startup could differentiate itself from existing market offerings without naming competitors.\\n- gap_summary MUST provide a concise summary of the overall market gap opportunity in 2-4 sentences.\\n- analysis_status MUST always be \\\"Completed\\\".\\n\\nConfidence Score Rules:\\n- confidence_score MUST be an integer between 50 and 100.\\n- Assign the confidence score based ONLY on the gap analysis.\\n- If the startup addresses significant unmet customer needs, identifies strong market gaps, offers clear innovation opportunities, and has compelling differentiation, assign a confidence score between 90 and 100.\\n- If the startup identifies good market gaps with reasonable innovation and differentiation opportunities, assign a confidence score between 76 and 89.\\n- If the startup identifies only moderate gaps with limited differentiation or innovation potential, assign a confidence score between 60 and 75.\\n- If the startup identifies few meaningful market gaps, weak innovation opportunities, or minimal differentiation potential, assign a confidence score between 50 and 59.\\n- Choose the score that best matches the gap analysis. Do NOT use a default value.\\n\\nIMPORTANT:\\n- Generate ONLY gap analysis.\\n- DO NOT include market research.\\n- DO NOT include competitors.\\n- DO NOT include SWOT analysis.\\n- DO NOT include recommendations.\\n- DO NOT include business model.\\n- DO NOT include feasibility analysis.\\n- DO NOT include implementation planning.\\n- DO NOT include risk analysis.\\n- Return ONLY the JSON object without any additional text.\\n\\nStartup Idea:\\n\\nTitle:\\n{{ $json.generated_title }}\\n\\nDescription:\\n{{ $json.generated_description }}\\n\\nIndustry:\\n{{ $json.industry }}\"\n    }\n  ],\n  \"temperature\": 0.5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        448
+      ],
+      "id": "a0cb93e8-75c2-449d-9ade-bda752b60050",
+      "name": "AI Gap Analysis",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Gap-Analysis-Webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "84ca1be8-6f20-4577-aa9a-94969bdd16da",
+      "name": "Gap Analysis Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        448
+      ],
+      "webhookId": "2808f3c8-3647-42a9-b82c-a7ea5bc4508f"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "AI Gap Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Gap Analysis Data": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Database Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save Gap Analysis Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Gap Analysis": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gap Analysis Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "26074bc9-2295-4945-83ab-cf8355847ca1",
+  "meta": {
+    "instanceId": "2d890b0141b8e8dbe9c092172fd2e5ceae0b881f47eea8cb85a154d0b3f78c87"
+  },
+  "nodeGroups": [],
+  "id": "Ecd200sd63RpTnop",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T18:45:24.420Z",
+      "createdAt": "2026-07-28T18:45:24.420Z",
+      "id": "i08gxagOZgXnUlt3",
+      "name": "AI Idea Forge"
+    }
+  ]
+}

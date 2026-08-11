@@ -1,0 +1,255 @@
+{
+  "name": "Market Research Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/fetch-ai-analysis",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "analysis_request_id",
+              "value": "={{ $json.body.analysis_request_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c50237d1-12b9-4947-843e-d3f7d5862739",
+      "name": "Fetch AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "09c84be4-b35c-45ee-8778-97d65391e10a",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1328,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"Database\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "aa0ea027-3b59-4c6f-9e50-9c7162d37a7b",
+      "name": "Respond Database Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1328,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"OpenAI\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "76e16513-c205-4a5c-b8ea-d62e3c350779",
+      "name": "Respond OpenAI Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1328,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/save-market-research",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "80d2f196-5ef7-462d-a4f4-5716751f9dc5",
+      "name": "Save Market Research Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        896,
+        384
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json.choices[0].message.content;\n\n// Parse the AI response\nconst marketResearch = JSON.parse(response);\n\n// Return as n8n JSON object\nreturn [\n  {\n    json: {\n      analysis_request_id: $('Fetch AI Analysis').first().json.analysis_request_id,\n\n      problem: marketResearch.problem,\n      market_size: marketResearch.market_size,\n      target_customers: marketResearch.target_customers,\n      market_trends: marketResearch.market_trends,\n      customer_pain_points: marketResearch.customer_pain_points,\n      barriers_to_entry: marketResearch.barriers_to_entry,\n      market_growth_rate: marketResearch.market_growth_rate,\n      market_maturity: marketResearch.market_maturity,\n      regulatory_factors: marketResearch.regulatory_factors,\n      sources_analyzed: marketResearch.sources_analyzed,\n      confidence_score: marketResearch.confidence_score\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        384
+      ],
+      "id": "c083ad6f-1b7e-4b5f-95c8-0ff9c6b95f11",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional Market Research Consultant. Always return ONLY valid JSON. Never use markdown, code fences, explanations, comments, or additional text. Follow the JSON schema exactly. Generate ONLY market research. Never include competitors, recommendations, SWOT analysis, opportunities, business model, feasibility analysis, implementation planning, risk analysis, or gap analysis.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze the following startup idea and generate ONLY market research.\\n\\nReturn ONLY this JSON structure:\\n\\n{\\n  \\\"problem\\\": \\\"\\\",\\n  \\\"market_size\\\": {\\n    \\\"tam\\\": \\\"\\\",\\n    \\\"sam\\\": \\\"\\\",\\n    \\\"som\\\": \\\"\\\"\\n  },\\n  \\\"target_customers\\\": [],\\n  \\\"market_trends\\\": [],\\n  \\\"customer_pain_points\\\": [],\\n  \\\"barriers_to_entry\\\": [],\\n  \\\"market_growth_rate\\\": \\\"\\\",\\n  \\\"market_maturity\\\": \\\"\\\",\\n  \\\"regulatory_factors\\\": [],\\n  \\\"sources_analyzed\\\": 0,\\n  \\\"confidence_score\\\": 0\\n}\\n\\nRules:\\n- problem MUST describe the primary business problem the startup solves.\\n- market_size MUST include realistic TAM, SAM, and SOM estimates with values and units.\\n- target_customers MUST be an array of customer segments.\\n- market_trends MUST contain 4-6 current market trends.\\n- customer_pain_points MUST contain 4-6 customer pain points.\\n- barriers_to_entry MUST contain 4-6 market entry barriers.\\n- market_growth_rate MUST provide an estimated CAGR or annual growth percentage.\\n- market_maturity MUST be one of: Emerging, Growing, Mature, or Saturated.\\n- regulatory_factors MUST list applicable regulations, compliance requirements, or legal considerations.\\n- sources_analyzed MUST be an integer representing the approximate number of credible market sources considered.\\n\\nConfidence Score Rules:\\n- confidence_score MUST be an integer between 50 and 100.\\n- Assign the confidence score based ONLY on the market research.\\n- If the startup targets a large and growing market, has strong customer demand, favorable trends, manageable barriers to entry, and reliable market data, assign a confidence score between 90 and 100.\\n- If the startup targets a good market with positive growth, clear customer demand, and moderate barriers to entry, assign a confidence score between 76 and 89.\\n- If the startup targets a moderate market with average growth, uncertain demand, or notable barriers to entry, assign a confidence score between 60 and 75.\\n- If the startup targets a small, saturated, or declining market with weak demand, significant barriers, or limited supporting data, assign a confidence score between 50 and 59.\\n- Choose the score that best matches the market research. Do NOT use a default value.\\n\\nIMPORTANT:\\n- Generate ONLY market research.\\n- DO NOT include competitors.\\n- DO NOT include SWOT analysis.\\n- DO NOT include recommendations.\\n- DO NOT include opportunities.\\n- DO NOT include business model.\\n- DO NOT include feasibility analysis.\\n- DO NOT include implementation planning.\\n- DO NOT include risk analysis.\\n- DO NOT include gap analysis.\\n- Return ONLY the JSON object without any additional text.\\n\\nStartup Idea:\\n{{ $json.generated_description }}\"\n    }\n  ],\n  \"temperature\": 0.5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        480
+      ],
+      "id": "6323ef7a-5f37-40e6-ab62-cb31650a34bf",
+      "name": "AI Market Research",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "market-research-agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "42cedbce-544e-43b2-b06b-2dc077f2964c",
+      "name": "Market Research Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        480
+      ],
+      "webhookId": "0b772939-dd9b-459d-a823-d0560155b44b"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "AI Market Research",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Market Research Data": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Database Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save Market Research Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Market Research": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Market Research Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6888c4f8-1a61-4dd0-be7b-c8acf41596ab",
+  "meta": {
+    "instanceId": "2d890b0141b8e8dbe9c092172fd2e5ceae0b881f47eea8cb85a154d0b3f78c87"
+  },
+  "nodeGroups": [],
+  "id": "Vpo3gCv9l9M3EupL",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T18:45:24.420Z",
+      "createdAt": "2026-07-28T18:45:24.420Z",
+      "id": "i08gxagOZgXnUlt3",
+      "name": "AI Idea Forge"
+    }
+  ]
+}

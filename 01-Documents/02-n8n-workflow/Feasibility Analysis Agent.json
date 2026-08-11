@@ -1,0 +1,257 @@
+{
+  "name": "Feasibility Analysis Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/fetch-ai-analysis",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "analysis_request_id",
+              "value": "={{ $json.body.analysis_request_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "275d7161-0988-4587-b2b5-f77244ad2f89",
+      "name": "Fetch AI Analysis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "3745df18-f92c-446e-8b6f-08b9f647553d",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        32
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"Database\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "d56e0923-8a2f-4c15-8965-1d4cda9904ef",
+      "name": "Respond Database Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"success\": false, \"agent\": \"Market Research\", \"stage\": \"OpenAI\" }",
+        "options": {
+          "responseCode": 500
+        }
+      },
+      "id": "4cf84926-e8d1-49eb-89ba-c1e3499afa3a",
+      "name": "Respond OpenAI Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        416
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://project--a56c1092-4192-444c-8531-c8b31c0cf10d-dev.lovable.app/api/public/save-feasibility-analysis",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "b6c42972-916f-492c-971d-226ae0126a84",
+      "name": "Save Feasibility Analysis Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        896,
+        224
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Feasibility_Webhook",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "84eefd61-ab16-4443-a654-dd902a208bb0",
+      "name": "Feasibility Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        320
+      ],
+      "webhookId": "819e4279-0c2a-4c32-a481-c9ac28d7ba7e"
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $json.choices[0].message.content;\n\nconst feasibility = JSON.parse(response);\n\nreturn [\n  {\n    json: {\n      analysis_request_id: $('Fetch AI Analysis').first().json.analysis_request_id,\n\n      business_feasibility_score: feasibility.business_feasibility_score,\n      technical_feasibility_score: feasibility.technical_feasibility_score,\n      overall_feasibility_score: feasibility.overall_feasibility_score,\n      business_feasibility_summary: feasibility.business_feasibility_summary,\n      technical_feasibility_summary: feasibility.technical_feasibility_summary,\n      required_resources: feasibility.required_resources,\n      technology_stack: feasibility.technology_stack,\n      estimated_development_complexity: feasibility.estimated_development_complexity,\n      estimated_time_to_market: feasibility.estimated_time_to_market,\n      estimated_budget_range: feasibility.estimated_budget_range,\n      analysis_status: feasibility.analysis_status,\n      confidence_score: feasibility.confidence_score,\n      updated_at: feasibility.updated_at\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        224
+      ],
+      "id": "07cec3f7-3fea-4875-b6d2-06f717f0949b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GROQ_API_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.1-8b-instant\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a professional Startup Feasibility Expert. Always return ONLY valid JSON. Never use markdown, code fences, explanations, comments, or additional text. Follow the JSON schema exactly. Generate ONLY feasibility analysis. Never include market research, competitors, recommendations, SWOT analysis, business model, implementation planning, risk analysis, or gap analysis.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Analyze the following startup idea and generate ONLY feasibility analysis.\\n\\nReturn ONLY this JSON structure:\\n\\n{\\n  \\\"business_feasibility_score\\\": 0,\\n  \\\"technical_feasibility_score\\\": 0,\\n  \\\"overall_feasibility_score\\\": 0,\\n  \\\"business_feasibility_summary\\\": \\\"\\\",\\n  \\\"technical_feasibility_summary\\\": \\\"\\\",\\n  \\\"required_resources\\\": [],\\n  \\\"technology_stack\\\": [],\\n  \\\"estimated_development_complexity\\\": \\\"\\\",\\n  \\\"estimated_time_to_market\\\": \\\"\\\",\\n  \\\"estimated_budget_range\\\": \\\"\\\",\\n  \\\"analysis_status\\\": \\\"Completed\\\",\\n  \\\"confidence_score\\\": 0\\n}\\n\\nRules:\\n- business_feasibility_score MUST be an integer between 0 and 100.\\n- technical_feasibility_score MUST be an integer between 0 and 100.\\n- overall_feasibility_score MUST be an integer between 0 and 100.\\n- business_feasibility_summary MUST summarize commercial viability in 2-4 sentences.\\n- technical_feasibility_summary MUST summarize technical viability in 2-4 sentences.\\n- required_resources MUST contain 5-8 key resources required to build and launch the startup.\\n- technology_stack MUST contain 5-10 recommended technologies, platforms, frameworks, or tools required for implementation.\\n- estimated_development_complexity MUST be one of: Low, Medium, High, or Very High.\\n- estimated_time_to_market MUST provide a realistic estimated development timeline.\\n- estimated_budget_range MUST provide a realistic estimated budget range in USD.\\n- analysis_status MUST always be \\\"Completed\\\".\\n\\nConfidence Score Rules:\\n- confidence_score MUST be an integer between 50 and 100.\\n- Assign the confidence score based ONLY on the feasibility analysis.\\n- If the startup has Low development complexity, high business viability, realistic budget, achievable timeline, and a strong technical foundation, assign a confidence score between 90 and 100.\\n- If the startup has Medium development complexity with good business and technical feasibility, assign a confidence score between 76 and 89.\\n- If the startup has High development complexity, significant technical challenges, higher budget, or longer time to market, assign a confidence score between 60 and 75.\\n- If the startup has Very High development complexity, major technical uncertainty, unrealistic budget or timeline, or poor feasibility, assign a confidence score between 50 and 59.\\n- Choose the score that best matches the feasibility analysis. Do NOT use a default value.\\n\\nIMPORTANT:\\n- Generate ONLY feasibility analysis.\\n- DO NOT include market research.\\n- DO NOT include competitors.\\n- DO NOT include SWOT analysis.\\n- DO NOT include recommendations.\\n- DO NOT include business model.\\n- DO NOT include implementation planning.\\n- DO NOT include risk analysis.\\n- DO NOT include gap analysis.\\n- Return ONLY the JSON object without any additional text.\\n\\nStartup Idea:\\n\\nTitle:\\n{{ $json.generated_title }}\\n\\nDescription:\\n{{ $json.generated_description }}\\n\\nIndustry:\\n{{ $json.industry }}\"\n    }\n  ],\n  \"temperature\": 0.5\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        320
+      ],
+      "id": "245baca3-326b-49a2-8879-5a315809dfea",
+      "name": "AI Feasibility Analysis",
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Fetch AI Analysis": {
+      "main": [
+        [
+          {
+            "node": "AI Feasibility Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Feasibility Analysis Data": {
+      "main": [
+        [
+          {
+            "node": "Respond Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Database Error",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Feasibility Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch AI Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Save Feasibility Analysis Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Feasibility Analysis": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond OpenAI Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "4b7ed33f-6df6-44af-92b2-a0954043ad56",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2d890b0141b8e8dbe9c092172fd2e5ceae0b881f47eea8cb85a154d0b3f78c87"
+  },
+  "nodeGroups": [],
+  "id": "abYnySP8kwfCHW6r",
+  "tags": [
+    {
+      "updatedAt": "2026-07-28T18:45:24.420Z",
+      "createdAt": "2026-07-28T18:45:24.420Z",
+      "id": "i08gxagOZgXnUlt3",
+      "name": "AI Idea Forge"
+    }
+  ]
+}
