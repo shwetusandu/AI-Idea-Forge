@@ -269,10 +269,6 @@ The user can review the results and access the generated report.
 
 The repository includes supporting project documentation and visual references.
 
-### One Pager
-
-[View One Pager](01-Documents/01-Images/AI-Idea-Forge-Image.png)
-
 ### Product Requirements Document
 
 [View Product Requirements Document](01-Documents/02-AI-Idea-Forge-PRD.pdf)
