@@ -407,7 +407,7 @@ The project demonstrates an end-to-end AI automation system combining:
 
 - 🌐 **Live Application:** https://discovery-agent-lab.lovable.app
 - 📦 **GitHub:** [Main Repo](https://github.com/shwetusandu/AI-Idea-Forge)
-- 🎥 **Project Demo:** Add video URL here
+- 🎥 **Project Demo:** [video URL](https://drive.google.com/file/d/1JQBjaBGYflNTIIzXnop9mJXBhxov-in1/view?usp=sharing)
 - 💼 **LinkedIn:** [post](https://www.linkedin.com/posts/shwetha-mallesh-478079aa_ai-idea-forge-ai-powered-startup-idea-discovery-share-7492948885137571842-2GXb/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABclllwBqx0Sgnh-H_dXv6RvB3EkHnxwi-Q)
 
 ---
