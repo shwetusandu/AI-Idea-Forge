@@ -305,11 +305,19 @@ The repository includes supporting project documentation and visual references.
 
 ![Supabase](01-Documents/01-Images/04-AI-Idea-Forge-Supabase-Database-Design.png)
 
-### Discovery Galaxy
+### Dashboard Web Page
+
+![Dashboard](01-Documents/01-Images/Web-Design-Concept-5-Dashboard-Page.png)
+
+### New Analysis Web Page
+
+![New Analysis](01-Documents/01-Images/Web-Design-Concept-5-New-Analysis-Page.png)
+
+### Discovery Galaxy Web Page
 
 ![Discovery Galaxy](01-Documents/01-Images/Web-Design-Concept-5-Discovery-Galaxy-Page.png)
 
-### Final Output
+### Final Report Output
 
 ![Final Output](01-Documents/01-Images/Web-Design-Concept-5-PopUp-DialogBox.png)
 
