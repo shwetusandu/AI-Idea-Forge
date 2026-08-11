@@ -138,6 +138,7 @@ Completed analysis results can be reviewed through the application and generated
 | **Groq** | LLM processing |
 | **Supabase** | Authentication, database and application data |
 | **GitHub** | Source control and project documentation |
+| **Postman** | Testing URL |
 
 ---
 
