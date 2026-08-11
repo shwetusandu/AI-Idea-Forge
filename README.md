@@ -293,10 +293,6 @@ The repository includes supporting project documentation and visual references.
 
 ## Screenshots
 
-### AI Idea Forge Overview
-
-![AI Idea Forge One Pager](01-Documents/01-Images/AI-Idea-Forge-Image.png)
-
 ### System Architecture
 
 ![System Integration Workflow](01-Documents/01-Images/05-AI-Idea-Forge-SI-Workflow-Automation.png)
