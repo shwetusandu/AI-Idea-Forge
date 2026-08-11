@@ -293,9 +293,17 @@ The repository includes supporting project documentation and visual references.
 
 ## Screenshots
 
+### PRD
+
+![PRD](01-Documents/01-Images/02-AI-Idea-Forge-PRD.png)
+
 ### System Architecture
 
 ![System Integration Workflow](01-Documents/01-Images/05-AI-Idea-Forge-SI-Workflow-Automation.png)
+
+### Supabase Design
+
+![Supabase](01-Documents/01-Images/04-AI-Idea-Forge-Supabase-Database-Design.png)
 
 ### Discovery Galaxy
 
