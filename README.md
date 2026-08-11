@@ -1,8 +1,6 @@
-# AI Idea Forge
+![AI Idea Forge One Pager](01-Documents/01-Images/AI-Idea-Forge-Image.png)
 
 > **AI-powered validation and research platform for business ideas and product concepts**
-
-![AI Idea Forge One Pager](01-Documents/01-Images/AI-Idea-Forge-Image.png)
 
 AI Idea Forge helps users research and evaluate a business idea or product concept before moving forward with it. The platform combines **six specialized AI agents** into an automated workflow that analyzes the idea from multiple perspectives and presents the results through a visual interface and structured reports.
 
