@@ -1,1 +1,1 @@
-![](01-Documents.01-images.AI-Idea-Forge-Image)
+![One-Pager](01-Documents/01-Images/AI-Idea-Forge-Image.png)
