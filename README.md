@@ -10,7 +10,7 @@
 ![AI Idea Forge System Integration Workflow Automation](01-Documents/01-Images/05-AI-Idea-Forge-SI-Workflow-Automation.png)
 
 [AI Idea Forge UIUX Design Concepts](01-Documents/06-AI-Idea-Forge-UIUX-Design-Concepts)
-![](01-Documents/01-Images/Web-Design-Concept-5-Discovery-Galaxy-Page)
+![](01-Documents/01-Images/Web-Design-Concept-5-Discovery-Galaxy-Page.png)
 
 [AI Idea Forge Final Output Report](01-Documents/08-ai-idea-forge-report-7a2efd33-57b3-4ff7-a03b-d8be99e7dfa8)
-![](01-Documents/01-Images/Web-Design-Concept-5-PopUp-DialogBox)
+![](01-Documents/01-Images/Web-Design-Concept-5-PopUp-DialogBox.png)
